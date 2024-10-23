@@ -30,6 +30,14 @@ func TestTransform(t *testing.T) {
 	t.Logf("got = %v", list)
 }
 
+func TestTransformAsync(t *testing.T) {
+	data := []int{1, 2, 3, 4, 5}
+	list := TransformAsync(data, func(t int) string {
+		return fmt.Sprintf("%d", t)
+	})
+	t.Logf("got = %v", list)
+}
+
 func TestWrap(t *testing.T) {
 	data := []int{1, 2, 3, 4, 5}
 	Wrap(data).Map(func(v int) int {

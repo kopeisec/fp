@@ -43,6 +43,21 @@ func Transform[T any, B any](s Slice[T], transform func(T) B) Slice[B] {
 	return result
 }
 
+// TransformAsync 函数将切片中的每一个值转成新类型
+func TransformAsync[T any, B any](s Slice[T], transform func(T) B) Slice[B] {
+	result := make(Slice[B], len(s))
+	var wg sync.WaitGroup
+	for i, v := range s {
+		wg.Add(1)
+		go func(i int, v T) {
+			defer wg.Done()
+			result[i] = transform(v)
+		}(i, v)
+	}
+	wg.Wait()
+	return result
+}
+
 func Wrap[T any](s Slice[T]) Slice[T] {
 	return s
 }
