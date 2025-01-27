@@ -16,6 +16,24 @@ func (s Slice[T]) Filter(condition func(T) bool) Slice[T] {
 	return result
 }
 
+// RemoveDuplicate 方法移除切片中的重复元素
+func (s Slice[T]) RemoveDuplicate(equal func(a T, b T) bool) Slice[T] {
+	result := Slice[T]{}
+	for _, item := range s {
+		duplicate := false
+		for _, uniqueItem := range result {
+			if equal(item, uniqueItem) {
+				duplicate = true
+				break
+			}
+		}
+		if !duplicate {
+			result = append(result, item)
+		}
+	}
+	return result
+}
+
 // Map 函数对切片中的每个元素应用变换函数
 func (s Slice[T]) Map(transform func(T) T) Slice[T] {
 	var result Slice[T]
