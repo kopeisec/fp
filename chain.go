@@ -16,6 +16,19 @@ func (s Slice[T]) Filter(condition func(T) bool) Slice[T] {
 	return result
 }
 
+// FilterWithKeyFunc 函数根据 KeyFunc 函数进行过滤
+func (s Slice[T]) FilterWithKeyFunc(keyFunc func(T) string) Slice[T] {
+	m := make(map[string]bool)
+	return s.Filter(func(item T) bool {
+		k := keyFunc(item)
+		if _, ok := m[k]; ok {
+			return false
+		}
+		m[k] = true
+		return true
+	})
+}
+
 // RemoveDuplicate 方法移除切片中的重复元素
 func (s Slice[T]) RemoveDuplicate(equal func(a T, b T) bool) Slice[T] {
 	result := Slice[T]{}
