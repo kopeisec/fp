@@ -20,3 +20,11 @@ func AccumulateStringJoin(sep string) func(s1 string, s2 string) string {
 		}
 	}
 }
+
+func Or(b1 bool, b2 bool) bool {
+	return b1 || b2
+}
+
+func And(b1 bool, b2 bool) bool {
+	return b1 && b2
+}
