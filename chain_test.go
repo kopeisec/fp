@@ -2,6 +2,7 @@ package fp
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -54,4 +55,11 @@ func TestSlice_MonadAsync(t *testing.T) {
 	Wrap(data).MonadAsync(func(v int) {
 		fmt.Println(v)
 	})
+}
+
+func TestSlice_FilterInSlice(t *testing.T) {
+	data := []int{1, 2, 3, 4, 5}
+	result := Wrap(data).FilterInSlice([]int{2, 4}, Equal)
+	t.Logf("got = %v", result)
+	reflect.DeepEqual(result, []int{2, 4})
 }
