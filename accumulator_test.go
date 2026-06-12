@@ -89,3 +89,107 @@ func TestAccumulateStringJoin(t *testing.T) {
 		})
 	}
 }
+
+func TestOr(t *testing.T) {
+	type args struct {
+		b1 bool
+		b2 bool
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "",
+			args: args{
+				b1: false,
+				b2: false,
+			},
+			want: false,
+		},
+		{
+			name: "",
+			args: args{
+				b1: true,
+				b2: false,
+			},
+			want: true,
+		},
+		{
+			name: "",
+			args: args{
+				b1: false,
+				b2: true,
+			},
+			want: true,
+		},
+		{
+			name: "",
+			args: args{
+				b1: true,
+				b2: true,
+			},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Or(tt.args.b1, tt.args.b2); got != tt.want {
+				t.Errorf("Or() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestAnd(t *testing.T) {
+	type args struct {
+		b1 bool
+		b2 bool
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "",
+			args: args{
+				b1: false,
+				b2: false,
+			},
+			want: false,
+		},
+		{
+			name: "",
+			args: args{
+				b1: false,
+				b2: true,
+			},
+			want: false,
+		},
+		{
+			name: "",
+			args: args{
+				b1: true,
+				b2: false,
+			},
+			want: false,
+		},
+		{
+			name: "",
+			args: args{
+				b1: true,
+				b2: true,
+			},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := And(tt.args.b1, tt.args.b2); got != tt.want {
+				t.Errorf("And() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
